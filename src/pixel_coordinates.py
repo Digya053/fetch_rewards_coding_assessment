@@ -39,18 +39,22 @@ class PixelCoordinates:
 
     def handle_edge_cases_and_error(self):
         # Return empty values if corner points or dimension values are not present
-        if not self.n_rows and not self.n_cols:
-            return self.res
-        if len(self.corner_points) == 0:
-            return []
-        if self.corner_points[0] == self.corner_points[1] == self.corner_points[2] == self.corner_points[3]:
+        if self.n_rows == 0 and self.n_cols == 0:
             self.incorrect_input = True
-            self.error_msg = "The corner point should have different values"
+            self.msg = self.res
+            return
+        if len(self.corner_points) == 0:
+            self.incorrect_input = True
+            self.msg = []
             return
         if not self.n_rows or not self.n_cols:
             self.incorrect_input = True
             self.error_msg = "The dimension cannot have only number of rows or only number of columns"
             return 
+        if self.corner_points[0] == self.corner_points[1] == self.corner_points[2] == self.corner_points[3]:
+            self.incorrect_input = True
+            self.error_msg = "The corner point should have different values"
+            return
         if (self.corner_points[0][1] != self.corner_points[1][1] or self.corner_points[0][0] != self.corner_points[2][0]
         or self.corner_points[2][1] != self.corner_points[3][1] or self.corner_points[1][0] != self.corner_points[3][0]):
             self.incorrect_input = True
@@ -64,9 +68,9 @@ class PixelCoordinates:
 
     def set_corner_values(self):
         """Set the corner values""" 
-        self.res[0][0] = self.corner_points[2]
         self.res[self.n_rows-1][0] = self.corner_points[0]
         self.res[self.n_rows-1][self.n_cols-1] = self.corner_points[1]
+        self.res[0][0] = self.corner_points[2]
         self.res[0][self.n_cols-1] = self.corner_points[3]
           
     def calc_horizontal_boundary_coords(self):
