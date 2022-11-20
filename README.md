@@ -1,5 +1,5 @@
 # fetch_rewards_coding_assessment
-This program calculates the equally-spaced pixel coordinate values to be displayed on a 2D surface given the dimensions of the image and its corner points.
+This program calculates the equally-spaced pixel coordinate values to be displayed on a 2D surface given the dimension of the image and its corner points.
 
 # Running the program:
 
