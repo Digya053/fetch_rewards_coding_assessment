@@ -48,8 +48,8 @@ class PixelCoordinates:
             self.incorrect_input = True
             self.error_msg = "The dimension cannot have only number of rows or only number of columns"
             return 
-        if (self.corner_points[0][0] != self.corner_points[1][0] or self.corner_points[0][1] != self.corner_points[2][1]
-        or self.corner_points[2][0] != self.corner_points[3][0] or self.corner_points[1][1] != self.corner_points[3][1]):
+        if (self.corner_points[0][1] != self.corner_points[1][1] or self.corner_points[0][0] != self.corner_points[2][0]
+        or self.corner_points[2][1] != self.corner_points[3][1] or self.corner_points[1][0] != self.corner_points[3][0]):
             self.incorrect_input = True
             self.error_msg = "The rectangle should be parallel to x and y axes to obtain correct result"
             return 
@@ -106,4 +106,3 @@ def main():
 
 if __name__=="__main__":
     print(main())
-    
