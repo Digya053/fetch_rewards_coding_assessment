@@ -2,39 +2,54 @@ import numpy as np
 from argparse import ArgumentParser
 
 class PixelCoordinates:
+    """
+    This program uses a dynamic programmic approach to calculate the pixel coordinate values of an image. Firstly,
+    the distance between row and column endpoints are calculated (self.diffrow and self.diffcol).
+    Then, the pixel coordinate values at the border (both horizontal and vertical) is calculated as in function
+    calc_horizontal_boundary_coords() and calc_vertical_boundary_coords(). Thereafter, the coordinate values of equally 
+    spaced non-boundary pixels are calculated.
+    """
 
     def __init__(self, corner_points, n_rows, n_cols, n_decimal=2):
+        """Assign the input values"""
         self.corner_points = corner_points
         self.n_rows = n_rows
         self.n_cols = n_cols
         self.n_decimal = n_decimal
         self.res = [[0 for i in range(self.n_cols)]for j in range(self.n_rows)]
 
+        # Return empty values if corner points or dimension values are not present
         if self.n_rows == 0 and self.n_cols == 0:
             return self.res
         if len(self.corner_points) == 0:
-            return
+            return []
 
+        # If there is only one row, the space between extreme coordinates of column will be zero
         self.diffrow = (self.corner_points[1][0] - self.corner_points[0][0])/(self.n_cols - 1) if self.n_cols > 1 else 0
+        # If there is only one column, the space between extreme coordinates of row will be zero
         self.diffcol = (self.corner_points[2][1] - self.corner_points[0][1])/(self.n_rows - 1) if self.n_rows > 1 else 0
 
     def set_corner_values(self):
+        """Set the corner values"""
         self.res[self.n_rows-1][0] = self.corner_points[0]
         self.res[self.n_rows-1][self.n_cols-1] = self.corner_points[1]
         self.res[0][0] = self.corner_points[2]
         self.res[0][self.n_cols-1] = self.corner_points[3]
           
     def calc_horizontal_boundary_coords(self):
+        """Set the coordinate values of boundary rows"""
         for i in range(self.n_cols-1):
             self.res[0][i+1] = [self.res[0][i][0] + self.diffrow, self.res[0][i][1]]	
             self.res[self.n_rows-1][i+1] = [self.res[self.n_rows-1][i][0] + self.diffrow, self.res[self.n_rows-1][i][1]]
         
     def calc_vertical_boundary_coords(self):
+        """Set the coordinate values of boundary columns"""
         for i in range(self.n_rows-1):
             self.res[i+1][0] = [self.res[i][0][0], self.res[i][0][1] - self.diffcol]
             self.res[i+1][self.n_cols-1] = [self.res[i][self.n_cols-1][0], self.res[i][self.n_cols-1][1] - self.diffcol]
     
     def calc_inside_coords(self):
+        """Set the coordinate values of inside pixels using the boundary values"""
         for row in range(1, self.n_rows):
             for col in range(1, self.n_cols):
                 self.res[row][col] = [self.res[row][col-1][0] + self.diffrow, self.res[row][col-1][1]] 
