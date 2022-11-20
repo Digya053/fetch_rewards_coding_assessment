@@ -6,10 +6,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('simple_ui.html')
+	"""Render simple UI on localhost:port_no/"""
+	return render_template('simple_ui.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
+	"""Pass the input values of the user to the PixelCoordinates class and return the output obtained."""
 	result = {}
 	submitted_text = request.data.decode('utf-8')
 	filled_elements = [float(i) for i in submitted_text.split(",")]

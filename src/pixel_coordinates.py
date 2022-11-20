@@ -3,7 +3,7 @@ from argparse import ArgumentParser
 
 class PixelCoordinates:
     """
-    This program uses a dynamic programmic approach to calculate the pixel coordinate values of an image. Firstly,
+    This class uses a dynamic programmic approach to calculate the pixel coordinate values of an image. Firstly,
     the distance between row and column endpoints are calculated (self.diffrow and self.diffcol).
     Then, the pixel coordinate values at the border (both horizontal and vertical) is calculated as in function
     calc_horizontal_boundary_coords() and calc_vertical_boundary_coords(). Thereafter, the coordinate values of equally 
@@ -11,7 +11,19 @@ class PixelCoordinates:
     """
 
     def __init__(self, corner_points, n_rows, n_cols, n_decimal=2):
-        """Assign the input values"""
+        """Assign the input values
+
+        Parameters
+        ----------
+        corner_points: list
+            The corner points of a 2D array
+        n_rows: int
+            The number of rows of a 2D array
+        n_cols: int
+            The number of columns of a 2D array
+        n_decimal: int
+            Additional input to round the array numbers with decimal to required places.
+        """
         self.corner_points = corner_points
         self.n_rows = n_rows
         self.n_cols = n_cols
