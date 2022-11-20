@@ -1,5 +1,5 @@
 # fetch_rewards_coding_assessment
-This program calculates the equally-spaced pixel coordinate values to be displayed on a 2D surface given the dimensions of the image and its corner points.
+This program calculates the equally-spaced pixel coordinate values to be displayed on a 2D surface given the dimension of the image and its corner points.
 
 # Running the program:
 
@@ -28,8 +28,10 @@ For running the python file directly and testing using the above example:
 
 1. Clone the repository.
 2. Go inside fetch_rewards_coding_assessment folder.
-3. Create a virtual environment and run ```pip3 install -r requirements.txt```
-4. Run ```python3 -m src.pixel_coordinates --corner_pts="[(1,1),(3,1),(1,3),(3,3)]" --n_rows=3 --n_cols=3 --n_decimal=2```
+3. Create a virtual environment 'env': ```python3 -m venv env```
+4. Execute command: ```source env/bin/activate```
+5. Run ```pip3 install -r requirements.txt```
+6. Run ```python3 -m src.pixel_coordinates --corner_pts="[(1,1),(3,1),(1,3),(3,3)]" --n_rows=3 --n_cols=3 --n_decimal=2```
 
 
 
