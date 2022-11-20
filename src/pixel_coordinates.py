@@ -37,13 +37,16 @@ class PixelCoordinates:
         # If there is only one column, the space between extreme coordinates of row will be zero
         self.diffcol = (self.corner_points[2][1] - self.corner_points[0][1])/(self.n_rows - 1) if self.n_rows > 1 else 0
 
-    def set_corner_values(self):
-        """Set the corner values"""
+    def handle_edge_cases_and_error(self):
         # Return empty values if corner points or dimension values are not present
         if not self.n_rows and not self.n_cols:
             return self.res
         if len(self.corner_points) == 0:
             return []
+        if self.corner_points[0] == self.corner_points[1] == self.corner_points[2] == self.corner_points[3]:
+            self.incorrect_input = True
+            self.error_msg = "The corner point should have different values"
+            return
         if not self.n_rows or not self.n_cols:
             self.incorrect_input = True
             self.error_msg = "The dimension cannot have only number of rows or only number of columns"
@@ -57,7 +60,10 @@ class PixelCoordinates:
         or self.corner_points[0][0] > self.corner_points[2][0] or self.corner_points[1][0] > self.corner_points[3][0]):
             self.incorrect_input = True
             self.error_msg = "Please pass proper corner point values to obtain correct result"
-            return 
+            return
+
+    def set_corner_values(self):
+        """Set the corner values""" 
         self.res[0][0] = self.corner_points[2]
         self.res[self.n_rows-1][0] = self.corner_points[0]
         self.res[self.n_rows-1][self.n_cols-1] = self.corner_points[1]
@@ -82,15 +88,15 @@ class PixelCoordinates:
                 self.res[row][col] = [self.res[row][col-1][0] + self.diffrow, self.res[row][col-1][1]] 
 
     def get_result(self):
-        self.set_corner_values()
+        self.handle_edge_cases_and_error()
         if self.incorrect_input:
             return self.error_msg
+        self.set_corner_values()
         self.calc_horizontal_boundary_coords()
         self.calc_vertical_boundary_coords()
         self.calc_inside_coords()
 
         return str(np.round(self.res, decimals = int(self.n_decimal)).tolist())
-
 
 def main():
     parser = ArgumentParser()
@@ -102,7 +108,6 @@ def main():
 
     pc = PixelCoordinates(eval(args.corner_pts), args.n_rows, args.n_cols, args.n_decimal)
     return pc.get_result()
-
 
 if __name__=="__main__":
     print(main())
