@@ -1,6 +1,6 @@
 import json
 from flask import Flask, render_template, request
-from pixel_coordinates import PixelCoordinates
+from src.pixel_coordinates import PixelCoordinates
 
 app = Flask(__name__)
 
@@ -17,5 +17,5 @@ def submit():
 	result["res"] = PixelCoordinates(corner_points, int(filled_elements[0]), int(filled_elements[1]), filled_elements[10]).get_result() 
 	return json.dumps(result)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+#if __name__ == "__main__":
+#    app.run(debug=True)
