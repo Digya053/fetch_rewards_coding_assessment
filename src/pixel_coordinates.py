@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 from argparse import ArgumentParser
 
@@ -30,12 +31,6 @@ class PixelCoordinates:
         self.n_decimal = n_decimal
         self.res = [[0 for i in range(self.n_cols)]for j in range(self.n_rows)]
 
-        # Return empty values if corner points or dimension values are not present
-        if self.n_rows == 0 and self.n_cols == 0:
-            return self.res
-        if len(self.corner_points) == 0:
-            return []
-
         # If there is only one row, the space between extreme coordinates of column will be zero
         self.diffrow = (self.corner_points[1][0] - self.corner_points[0][0])/(self.n_cols - 1) if self.n_cols > 1 else 0
         # If there is only one column, the space between extreme coordinates of row will be zero
@@ -43,9 +38,17 @@ class PixelCoordinates:
 
     def set_corner_values(self):
         """Set the corner values"""
+        # Return empty values if corner points or dimension values are not present
+        if not self.n_rows and not self.n_cols:
+            return self.res
+        if len(self.corner_points) == 0:
+            return []
+        if (self.corner_points[3][0] < self.corner_points[2][0] or self.corner_points[1][0] < self.corner_points[0][0] 
+        or self.corner_points[2][1] < self.corner_points[0][1] or self.corner_points[3][1] < self.corner_points[1][1]):
+            sys.exit("Please pass the proper values to obtain correct result")
+        self.res[0][0] = self.corner_points[2]
         self.res[self.n_rows-1][0] = self.corner_points[0]
         self.res[self.n_rows-1][self.n_cols-1] = self.corner_points[1]
-        self.res[0][0] = self.corner_points[2]
         self.res[0][self.n_cols-1] = self.corner_points[3]
           
     def calc_horizontal_boundary_coords(self):
@@ -67,10 +70,13 @@ class PixelCoordinates:
                 self.res[row][col] = [self.res[row][col-1][0] + self.diffrow, self.res[row][col-1][1]] 
 
     def get_result(self):
-        self.set_corner_values()
-        self.calc_horizontal_boundary_coords()
-        self.calc_vertical_boundary_coords()
-        self.calc_inside_coords()
+        try:
+            self.set_corner_values()
+            self.calc_horizontal_boundary_coords()
+            self.calc_vertical_boundary_coords()
+            self.calc_inside_coords()
+        except:
+            return "Please pass proper corner point values to obtain correct result"
         return str(np.round(self.res, decimals = int(self.n_decimal)).tolist())
 
 
