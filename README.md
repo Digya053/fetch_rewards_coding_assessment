@@ -19,7 +19,8 @@ For instance, the example input dimension of ```(3, 3)``` and corner points ```[
 2. Go inside fetch_rewards_coding_assessment folder.
 3. Start docker.
 4. Build docker image: ```docker image build -t fetch-rewards .```
-5. Run image: ```docker run -p 5000:5000 -d fetch-rewards```
+5. Run image: ```docker run fetch-rewards```
+6. Run: ```docker run -p 5000:5000 -d fetch-rewards```
 
 The above UI will then, be available at [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
