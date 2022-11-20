@@ -1,8 +1,6 @@
 import numpy as np
 from argparse import ArgumentParser
 
-import ast # this library converts list of strings to list of numeric values
-
 class PixelCoordinates:
 
     def __init__(self, corner_points, n_rows, n_cols, n_decimal=2):
@@ -17,8 +15,8 @@ class PixelCoordinates:
         if len(self.corner_points) == 0:
             return
 
-        self.diffrow = (self.corner_points[1][0] - self.corner_points[0][0])/(self.n_cols - 1)
-        self.diffcol = (self.corner_points[2][1] - self.corner_points[0][1])/(self.n_rows - 1) 
+        self.diffrow = (self.corner_points[1][0] - self.corner_points[0][0])/(self.n_cols - 1) if self.n_cols > 1 else 0
+        self.diffcol = (self.corner_points[2][1] - self.corner_points[0][1])/(self.n_rows - 1) if self.n_rows > 1 else 0
 
     def set_corner_values(self):
         self.res[self.n_rows-1][0] = self.corner_points[0]
@@ -57,7 +55,7 @@ def main():
     parser.add_argument("--n_decimal", default=2, type=int)
     args = parser.parse_args()
 
-    pc = PixelCoordinates(ast.literal_eval(args.corner_pts), args.n_rows, args.n_cols, args.n_decimal)
+    pc = PixelCoordinates(eval(args.corner_pts), args.n_rows, args.n_cols, args.n_decimal)
     return pc.get_result()
 
 

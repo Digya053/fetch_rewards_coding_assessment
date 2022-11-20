@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request
 import json
+from flask import Flask, render_template, request
 from pixel_coordinates import PixelCoordinates
 
 app = Flask(__name__)
