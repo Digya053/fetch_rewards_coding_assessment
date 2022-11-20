@@ -16,7 +16,7 @@ For instance, the example input dimension of ```(3, 3)``` and corner points ```[
 # Steps to run the program:
 
 1. Clone the repository.
-2. Go inside fetch_rewards_coding_assessment folder
+2. Go inside fetch_rewards_coding_assessment folder.
 3. Start docker.
 4. Build docker image: ```docker image build -t fetch-rewards .```
 5. Run image: ```docker run -p 5000:5000 -d fetch-rewards```
@@ -26,7 +26,7 @@ The above UI will then, be available at [http://127.0.0.1:5000/](http://127.0.0.
 For running the python file directly and testing using the above example:
 
 1. Clone the repository.
-2. Go inside fetch_rewards_coding_assessment folder
+2. Go inside fetch_rewards_coding_assessment folder.
 3. Run ```pip3 install -r requirements.txt```
 4. Run ```python3 -m src.pixel_coordinates --corner_pts="[(1,1),(3,1),(1,3),(3,3)]" --n_rows=3 --n_cols=3 --n_decimal=2``` (Note that corner_pts have been passed as a string.)
 
