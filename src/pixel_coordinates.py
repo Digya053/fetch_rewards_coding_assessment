@@ -1,4 +1,3 @@
-import sys
 import numpy as np
 from argparse import ArgumentParser
 
@@ -29,6 +28,8 @@ class PixelCoordinates:
         self.n_rows = n_rows
         self.n_cols = n_cols
         self.n_decimal = n_decimal
+        self.incorrect_input = False
+        self.error_msg = ""
         self.res = [[0 for i in range(self.n_cols)]for j in range(self.n_rows)]
 
         # If there is only one row, the space between extreme coordinates of column will be zero
@@ -43,9 +44,15 @@ class PixelCoordinates:
             return self.res
         if len(self.corner_points) == 0:
             return []
-        if (self.corner_points[3][0] < self.corner_points[2][0] or self.corner_points[1][0] < self.corner_points[0][0] 
-        or self.corner_points[2][1] < self.corner_points[0][1] or self.corner_points[3][1] < self.corner_points[1][1]):
-            sys.exit("Please pass the proper values to obtain correct result")
+        if not self.n_rows or not self.n_cols:
+            self.incorrect_input = True
+            self.error_msg = "The dimension cannot have only number of rows or only number of columns"
+            return 
+        if (self.corner_points[3][1] < self.corner_points[2][1] or self.corner_points[1][1] < self.corner_points[0][1] 
+        or self.corner_points[0][0] > self.corner_points[2][0] or self.corner_points[1][0] > self.corner_points[3][0]):
+            self.incorrect_input = True
+            self.error_msg = "Please pass proper corner point values to obtain correct result"
+            return 
         self.res[0][0] = self.corner_points[2]
         self.res[self.n_rows-1][0] = self.corner_points[0]
         self.res[self.n_rows-1][self.n_cols-1] = self.corner_points[1]
@@ -70,13 +77,13 @@ class PixelCoordinates:
                 self.res[row][col] = [self.res[row][col-1][0] + self.diffrow, self.res[row][col-1][1]] 
 
     def get_result(self):
-        try:
-            self.set_corner_values()
-            self.calc_horizontal_boundary_coords()
-            self.calc_vertical_boundary_coords()
-            self.calc_inside_coords()
-        except:
-            return "Please pass proper corner point values to obtain correct result"
+        self.set_corner_values()
+        if self.incorrect_input:
+            return self.error_msg
+        self.calc_horizontal_boundary_coords()
+        self.calc_vertical_boundary_coords()
+        self.calc_inside_coords()
+
         return str(np.round(self.res, decimals = int(self.n_decimal)).tolist())
 
 
@@ -94,10 +101,3 @@ def main():
 
 if __name__=="__main__":
     print(main())
-
-
-
-
-
-
-
