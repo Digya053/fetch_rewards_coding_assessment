@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fetch Rewards Assessment</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function (e) {
+		$('#submit').on('click', function () {
+			var form = new FormData();
+			var ins1 = document.getElementById('n_rows').value
+			console.log(ins1)
+			var ins2 =  document.getElementById('n_cols').value
+			var ins3 = document.getElementById('blx1').value
+			var ins4 = document.getElementById('bly1').value
+			var ins5 = document.getElementById('brx2').value
+			var ins6 = document.getElementById('bry2').value
+			var ins7 = document.getElementById('tlx3').value
+			var ins8 = document.getElementById('tly3').value
+			var ins9 = document.getElementById('trx4').value
+			var ins10 = document.getElementById('try4').value
+			var ins11 = document.getElementById('n_decimal').value
+			const arr = [ins1, ins2,ins3, ins4,ins5,ins6,ins7, ins8,ins9, ins10, ins11]
+			form = arr
+			
+			$.ajax({
+				url: '/submit', // point to server-side URL
+				dataType: 'json', // what to expect back from server
+				cache: false,
+				contentType: false,
+				processData: false,
+				data: form,
+				type: 'post',
+				success: function (response) { // display success response
+						$('#msg').html('');
+						$('#res').text(response.res);
+				},
+				error: function(response){  //display error response
+					$('#msg').html("Error");
+					$('#res').text(response.res);
+				}
+				
+		              });
+			});
+		});
+	</script>
+</head>
+
+<body>
+<h1>Fetch Rewards Coding Assessment</h1>
+
+<h2> Input Dimension:</h2>
+<h3> n_rows: <input type="integer" id="n_rows" size="7" value="0"> </h3>
+<h3> n_columns: <input type="integer" id="n_cols" size="7" value="0"> </h3>
+
+<h2> Corner Points:</h2>
+<h3> Bottom Left: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x<sub>1</sub> <input type="float" id="blx1" size="7" value="0">   
+		  &nbsp;&nbsp;&nbsp;&nbsp; y<sub>1</sub> <input type="float" id="bly1" size="7" value="0">
+<br>Bottom Right: &nbsp;&nbsp;&nbsp; x<sub>2</sub> <input type="float" id="brx2" size="7" value="0">
+                  &nbsp;&nbsp;&nbsp;&nbsp; y<sub>2</sub> <input type="float" id="bry2" size="7" value="0">
+</br>
+<br>
+Top Left: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x<sub>3</sub> <input type="float" id="tlx3" size="7" value="0">
+                  &nbsp;&nbsp;&nbsp;&nbsp; y<sub>3</sub> <input type="float" id="tly3" size="7" value="0">
+</br>
+<br>
+Top Right: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x<sub>4</sub> <input type="float" id="trx4" size="7" value="0">
+                  &nbsp;&nbsp;&nbsp;&nbsp; y<sub>4</sub> <input type="float" id="try4" size="7" value="0">
+</br>
+
+<h2> Number of values after decimal: <input type="integer" id="n_decimal" size="7", value="2"> </h2>
+
+<button id="submit">Submit</button>
+<pre>
+
+</pre>
+<h2> Result:</h2>
+<i> Please drag the result box to view the entire result if the result overflows the box </i>
+<br>
+<textarea rows="10" cols="150" id="res"> Result will be displayed here....</textarea>
+</br>
+</body>
+</html>
