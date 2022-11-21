@@ -17,7 +17,7 @@ def submit():
 	submitted_text = request.data.decode('utf-8').replace(",,",",0,")
 	filled_elements = []
 	for i in submitted_text.split(','):
-		if re.match("^\d*\.?\d+$", i):
+		if re.match("^\-?\d*\.?\d+$", i):
 			filled_elements.append(float(i))
 		else:
 			result["res"] = "Please pass numeric values only"
