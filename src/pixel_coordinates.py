@@ -41,16 +41,25 @@ class PixelCoordinates:
         # Return empty values if corner points or dimension values are not present
         if self.n_rows == 0 and self.n_cols == 0:
             self.incorrect_input = True
-            self.msg = self.res
+            self.error_msg = self.res
             return
         if len(self.corner_points) == 0:
             self.incorrect_input = True
-            self.msg = []
+            self.error_msg = []
+            return
+        if self.n_decimal < 0:
+            self.incorrect_input = True
+            self.error_msg = "Number of decimal places should be positive"
             return
         if not self.n_rows or not self.n_cols:
             self.incorrect_input = True
             self.error_msg = "The dimension cannot have only number of rows or only number of columns"
             return 
+        if self.n_rows < 0 or self.n_cols < 0:
+            print("value is less than 0")
+            self.incorrect_input = True
+            self.error_msg = "The value of rows and columns should be greater than 0"
+            return
         if self.corner_points[0] == self.corner_points[1] == self.corner_points[2] == self.corner_points[3]:
             self.incorrect_input = True
             self.error_msg = "The corner point should have different values"
