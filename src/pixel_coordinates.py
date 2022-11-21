@@ -38,7 +38,7 @@ class PixelCoordinates:
         self.diffcol = (self.corner_points[2][1] - self.corner_points[0][1])/(self.n_rows - 1) if self.n_rows > 1 else 0
 
     def handle_edge_cases_and_error(self):
-        # Return empty values if corner points or dimension values are not present
+        # Handle different edge edges and input
         if self.n_rows == 0 and self.n_cols == 0:
             self.incorrect_input = True
             self.error_msg = self.res
@@ -56,7 +56,6 @@ class PixelCoordinates:
             self.error_msg = "The dimension cannot have only number of rows or only number of columns"
             return 
         if self.n_rows < 0 or self.n_cols < 0:
-            print("value is less than 0")
             self.incorrect_input = True
             self.error_msg = "The value of rows and columns should be greater than 0"
             return
