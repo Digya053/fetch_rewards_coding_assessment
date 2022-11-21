@@ -1,3 +1,4 @@
+import re
 import json
 from flask import Flask, render_template, request
 from src.pixel_coordinates import PixelCoordinates
@@ -16,7 +17,7 @@ def submit():
 	submitted_text = request.data.decode('utf-8').replace(",,",",0,")
 	filled_elements = []
 	for i in submitted_text.split(','):
-		if i.isdigit():
+		if re.match("\d+.{0,1}\d*", i):
 			filled_elements.append(float(i))
 		else:
 			result["res"] = "Please pass numeric values only"
