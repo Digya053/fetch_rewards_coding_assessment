@@ -5,7 +5,7 @@ This program calculates the equally-spaced pixel coordinate values to be display
 
 The quickest way to view the output is through the heroku URL: [https://fetch-rewards-assessment.herokuapp.com/](https://fetch-rewards-assessment.herokuapp.com/)
 
-![image](https://drive.google.com/uc?export=view&id=1TP-ilTpufQ_pepUF3_nGWFPAzqth1R89)
+![image](https://drive.google.com/uc?export=view&id=1ZBL2-5v319JPxdFgpw0UaqPrkdQhbovt)
 
 The <b>Image Dimension</b> field contains entry for number of rows and columns of a 2D array which is set to 0 by default, and the <b>Corner Points</b> field contains the textbox for the four corner points of an array.
 Additionally, another input textbox for <b>Number of values after decimal</b> have been added with default value of 2 to give users the flexibility to produce output with their desired number of values after the decimal. 
